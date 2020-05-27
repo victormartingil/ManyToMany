@@ -11,7 +11,7 @@ public class LibroDto {
 	
 	private String titulo;
 	
-	private Set<AutorDto> autores;
+	private Set<AutorLibroDto> autores;
 	
 	public LibroDto() {
 	}
@@ -20,11 +20,11 @@ public class LibroDto {
 		this(id, null, new HashSet<>());
 	}
 	
-	public LibroDto(String titulo, Set<AutorDto> autores) {
+	public LibroDto(String titulo, Set<AutorLibroDto> autores) {
 		this(0, titulo, autores);
 	}
 	
-	public LibroDto(long id, String titulo, Set<AutorDto> autores) {
+	public LibroDto(long id, String titulo, Set<AutorLibroDto> autores) {
 		this.id = id;
 		this.titulo = titulo;
 		this.autores = autores;
@@ -46,11 +46,11 @@ public class LibroDto {
 		this.titulo = titulo;
 	}
 
-	public Set<AutorDto> getAutores() {
+	public Set<AutorLibroDto> getAutores() {
 		return autores;
 	}
 
-	public void setAutores(Set<AutorDto> autores) {
+	public void setAutores(Set<AutorLibroDto> autores) {
 		this.autores = autores;
 	}
 	

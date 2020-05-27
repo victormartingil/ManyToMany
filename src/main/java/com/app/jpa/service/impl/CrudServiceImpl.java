@@ -22,11 +22,12 @@ public abstract class CrudServiceImpl<Entity, Dto, Repository extends CrudReposi
 		this.converter = converter;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Dto> findAll() {
 		List<Dto> list = new ArrayList<>();
-    	list = (List<Dto>) repository.findAll();
+    	repository.findAll().forEach(e -> {
+    			list.add(converter.convertEntityToDto(e));
+    			});
     	return list;
 	}
 

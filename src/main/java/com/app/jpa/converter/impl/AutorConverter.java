@@ -12,7 +12,7 @@ import com.app.jpa.converter.AbstractConverter;
 import com.app.jpa.db.entity.Autor;
 import com.app.jpa.db.entity.Libro;
 import com.app.jpa.dto.AutorDto;
-import com.app.jpa.dto.LibroDto;
+import com.app.jpa.dto.LibroAutorDto;
 import com.app.jpa.repository.LibroRepository;
 
 @Component
@@ -34,7 +34,7 @@ public class AutorConverter extends AbstractConverter<Autor, AutorDto>{
 		Optional<Libro> libroOp;
 		Libro l;
 		if (dto.getLibros() != null) {
-			for (LibroDto libro : dto.getLibros()) {
+			for (LibroAutorDto libro : dto.getLibros()) {
 				libroOp = libroRepository.findById(libro.getId());
 				l = libroOp.isPresent()?libroOp.get():new Libro(libro.getId());
 				entity.addLibro(l);
@@ -52,7 +52,7 @@ public class AutorConverter extends AbstractConverter<Autor, AutorDto>{
 		
 		if (entity.getLibros() != null) {
 			for (Libro libro : entity.getLibros()) {
-				dto.addLibro(new LibroDto(libro.getId()));
+				dto.addLibro(new LibroAutorDto(libro.getId(), libro.getTitulo()));
 			}
 		}
 		

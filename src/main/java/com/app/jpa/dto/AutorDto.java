@@ -11,7 +11,7 @@ public class AutorDto {
 	
 	private String nombre;
 	
-	private Set<LibroDto> libros;
+	private Set<LibroAutorDto> libros;
 	
 	public AutorDto() {
 	}
@@ -24,7 +24,7 @@ public class AutorDto {
 		this(0, nombre, new HashSet<>());
 	}
 	
-	public AutorDto(long id, String nombre, Set<LibroDto> libros) {
+	public AutorDto(long id, String nombre, Set<LibroAutorDto> libros) {
 		this.id = id;
 		this.nombre= nombre;
 		this.libros = libros;
@@ -46,26 +46,24 @@ public class AutorDto {
 		this.nombre = nombre;
 	}
 
-	public Set<LibroDto> getLibros() {
+	public Set<LibroAutorDto> getLibros() {
 		return libros;
 	}
 
-	public void setLibros(Set<LibroDto> libros) {
+	public void setLibros(Set<LibroAutorDto> libros) {
 		this.libros = libros;
 	}
 	
-	public void addLibro (LibroDto libro) {
+	public void addLibro (LibroAutorDto libro) {
 		if (libros.contains(libro))
 			return;
 		libros.add(libro);
-		libro.getAutores().add(this);
 	}
 	
-	public void removeLibro (LibroDto libro) {
+	public void removeLibro (LibroAutorDto libro) {
 		if (!libros.contains(libro))
 			return;
 		libros.remove(libro);
-		libro.getAutores().remove(this);
 	}
 	
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.app.jpa.converter.AbstractConverter;
 import com.app.jpa.db.entity.Autor;
 import com.app.jpa.db.entity.Libro;
-import com.app.jpa.dto.AutorDto;
+import com.app.jpa.dto.AutorLibroDto;
 import com.app.jpa.dto.LibroDto;
 
 @Component
@@ -25,7 +25,7 @@ public class LibroConverter extends AbstractConverter<Libro, LibroDto>{
 		
 		Set <Autor> autores = new HashSet<>();
 		if (dto.getAutores() != null) {
-			for (AutorDto autor : dto.getAutores()) {
+			for (AutorLibroDto autor : dto.getAutores()) {
 				autores.add(new Autor(autor.getId()));
 			}
 		}
@@ -36,10 +36,10 @@ public class LibroConverter extends AbstractConverter<Libro, LibroDto>{
 	
 	public LibroDto convertEntityToDto (Libro entity) {
 		
-		Set<AutorDto> autores = new HashSet<>();
+		Set<AutorLibroDto> autores = new HashSet<>();
 		if (entity.getAutores() != null) {
 			for (Autor autor : entity.getAutores()) {
-				autores.add(new AutorDto(autor.getId()));
+				autores.add(new AutorLibroDto(autor.getId(), autor.getNombre()));
 			}
 		}
 		
