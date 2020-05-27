@@ -11,21 +11,21 @@ import org.springframework.stereotype.Component;
 import com.app.jpa.converter.AbstractConverter;
 import com.app.jpa.db.entity.Autor;
 import com.app.jpa.db.entity.Libro;
-import com.app.jpa.dto.AutorLibroDto;
-import com.app.jpa.dto.LibroDto;
+import com.app.jpa.dto.AutorDto;
+import com.app.jpa.dto.LibroConAutoresDto;
 
 @Component
-public class LibroConverter extends AbstractConverter<Libro, LibroDto>{
+public class LibroConverter extends AbstractConverter<Libro, LibroConAutoresDto>{
 
 	@Autowired
 	public LibroConverter () {
 	}
 	
-	public Libro convertDtoToEntity(LibroDto dto) {
+	public Libro convertDtoToEntity(LibroConAutoresDto dto) {
 		
 		Set <Autor> autores = new HashSet<>();
 		if (dto.getAutores() != null) {
-			for (AutorLibroDto autor : dto.getAutores()) {
+			for (AutorDto autor : dto.getAutores()) {
 				autores.add(new Autor(autor.getId()));
 			}
 		}
@@ -34,21 +34,21 @@ public class LibroConverter extends AbstractConverter<Libro, LibroDto>{
 							autores);
 	}
 	
-	public LibroDto convertEntityToDto (Libro entity) {
+	public LibroConAutoresDto convertEntityToDto (Libro entity) {
 		
-		Set<AutorLibroDto> autores = new HashSet<>();
+		Set<AutorDto> autores = new HashSet<>();
 		if (entity.getAutores() != null) {
 			for (Autor autor : entity.getAutores()) {
-				autores.add(new AutorLibroDto(autor.getId(), autor.getNombre()));
+				autores.add(new AutorDto(autor.getId(), autor.getNombre()));
 			}
 		}
 		
-		return new LibroDto (entity.getId(),
+		return new LibroConAutoresDto (entity.getId(),
 							entity.getTitulo(),
 							autores);
 	}
 	
-	public Set<LibroDto> convertEntityToDto(Set<Libro> set) {
+	public Set<LibroConAutoresDto> convertEntityToDto(Set<Libro> set) {
 		if (set == null) {
 			return null;
 		}
@@ -57,7 +57,7 @@ public class LibroConverter extends AbstractConverter<Libro, LibroDto>{
 				  .collect(Collectors.toSet());
 	}
 
-	public Set<Libro> convertDtoToEntity(Set<LibroDto> set) {
+	public Set<Libro> convertDtoToEntity(Set<LibroConAutoresDto> set) {
 		if (set == null) {
 			return null;
 		}
@@ -66,11 +66,11 @@ public class LibroConverter extends AbstractConverter<Libro, LibroDto>{
 				  .collect(Collectors.toSet());
 	}
 	
-	public Optional<LibroDto> convertEntityToDto(Optional<Libro> optional) {
+	public Optional<LibroConAutoresDto> convertEntityToDto(Optional<Libro> optional) {
 		return optional.map(this::convertEntityToDto);
 	}
 	
-	public void updateEntity (LibroDto dto, Libro entity) {
+	public void updateEntity (LibroConAutoresDto dto, Libro entity) {
 		entity.setTitulo(dto.getTitulo());
 	}
 
